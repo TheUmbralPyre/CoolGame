@@ -17,11 +17,6 @@ namespace CoolGame.Classes
             DamageTaken += BerserkGainAttack;
         }
 
-        public override void DealDamage(ICharacter Target)
-        {
-            Target.TakeDamage(Attack);
-        }
-
         private void BerserkGainAttack(object sender, EventArgs args)
         {
             Console.WriteLine($"[Berserker]: {Name} has Gained {BerserkAttackGain} Attack!");

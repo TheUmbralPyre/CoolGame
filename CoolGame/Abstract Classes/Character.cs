@@ -60,7 +60,6 @@ namespace CoolGame
             Console.WriteLine($"{Name} has {Health} points Left!");
         }
 
-
         public virtual void DealDamage(ICharacter Target)
         {
             Target.TakeDamage(Attack);
