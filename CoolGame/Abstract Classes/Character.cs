@@ -36,18 +36,39 @@ namespace CoolGame
             }
         }
 
-        public abstract event DamageTakenDelegate DamageTaken;
+        public event DamageTakenDelegate DamageTaken;
 
-        public abstract event DamageDealtDelegate DamageDealt;
+        public event DamageDealtDelegate DamageDealt;
 
         protected Character(string name, double attack, double health) : base(name)
         {
             Attack = attack;
             Health = health;
         }
-        // Make these calsses Virtual
-        public abstract void TakeDamage(double amount);
 
-        public abstract void DealDamage(ICharacter Target);
+        public virtual void TakeDamage(double amount)
+        {
+            Console.WriteLine($"{Name} took {amount} points of DMG!");
+
+            Health -= amount;
+
+            if (DamageTaken != null)
+            {
+                DamageTaken(this, new EventArgs());
+            }
+
+            Console.WriteLine($"{Name} has {Health} points Left!");
+        }
+
+
+        public virtual void DealDamage(ICharacter Target)
+        {
+            Target.TakeDamage(Attack);
+
+            if (DamageDealt != null)
+            {
+                DamageDealt(this, new EventArgs());
+            }
+        }
     }
 }

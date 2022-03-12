@@ -17,23 +17,9 @@ namespace CoolGame.Classes
             }
         }
 
-        public override event DamageTakenDelegate DamageTaken;
-
-        public override event DamageDealtDelegate DamageDealt;
-
         public Reaver(string name, double attack, double health) : base(name, attack, health)
         {
             DamageDealt += RevearHeal;
-        }
-
-        public override void TakeDamage(double amount)
-        {
-            Console.WriteLine($"{Name} took {amount} points of DMG!");
-
-            Health -= amount;
-
-            Console.WriteLine($"{Name} has {Health} points Left!");
-
         }
 
         private void RevearHeal(object sender, EventArgs args)
@@ -41,16 +27,6 @@ namespace CoolGame.Classes
             Console.WriteLine($"[Reaver]: {Name} has Gained {RevearHealthGain} Health After Dealing Damage!");
 
             Health += RevearHealthGain;
-        }
-
-        public override void DealDamage(ICharacter Target)
-        {
-            Target.TakeDamage(Attack);
-
-            if (DamageDealt != null)
-            {
-                DamageDealt(this, new EventArgs());
-            }
         }
     }
 }

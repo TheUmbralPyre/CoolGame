@@ -11,28 +11,10 @@ namespace CoolGame.Classes
     {
         private double BerserkAttackGain { get; set; }
 
-        public override event DamageTakenDelegate DamageTaken;
-
-        public override event DamageDealtDelegate DamageDealt;
-
         public Berserker(string name, double attack, double health, double berserkAttackGain) : base(name, attack, health)
         {
             BerserkAttackGain = berserkAttackGain;
             DamageTaken += BerserkGainAttack;
-        }
-
-        public override void TakeDamage(double amount)
-        {
-            Console.WriteLine($"{Name} took {amount} points of DMG!");
-
-            Health -= amount;
-
-            if (DamageTaken != null)
-            {
-                DamageTaken(this, new EventArgs());
-            }
-
-            Console.WriteLine($"{Name} has {Health} points Left!");
         }
 
         public override void DealDamage(ICharacter Target)
