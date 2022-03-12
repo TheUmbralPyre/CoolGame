@@ -10,7 +10,13 @@ namespace CoolGame
 {
     internal abstract class Character : NamedObject, ICharacter
     {
+        /// <summary>
+        /// Represents the Attack Value of the Character.
+        /// </summary>
         private double attack;
+        /// <summary>
+        /// Exposes the attack field.
+        /// </summary>
         public double Attack
         {
             get
@@ -23,7 +29,13 @@ namespace CoolGame
             }
         }
 
+        /// <summary>
+        /// Represents the Health Value of the Character.
+        /// </summary>
         private double health;
+        /// <summary>
+        /// Exposes the health field.
+        /// </summary>
         public double Health
         {
             get
@@ -50,10 +62,13 @@ namespace CoolGame
         {
             Console.WriteLine($"{Name} took {amount} points of DMG!");
 
+            // Subtract the Amount of Damage from Character Health
             Health -= amount;
 
+            // If the DamageTaken event is Listening...
             if (DamageTaken != null)
             {
+                // ...Raise the event
                 DamageTaken(this, new EventArgs());
             }
 
@@ -62,10 +77,13 @@ namespace CoolGame
 
         public virtual void DealDamage(ICharacter Target)
         {
+            // Handle the Target Taking Damage
             Target.TakeDamage(Attack);
 
+            // If the DamageDealt event is Listening...
             if (DamageDealt != null)
             {
+                // ...Raise the event
                 DamageDealt(this, new EventArgs());
             }
         }

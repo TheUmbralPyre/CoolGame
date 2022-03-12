@@ -8,13 +8,20 @@ namespace CoolGame
 {
     static internal class Combat
     {
-        static public void Fight(ICharacter warriorOne, ICharacter warriorTwo)
+        /// <summary>
+        /// Handle a Fight between two Characters.
+        /// </summary>
+        /// <param name="characterOne"> The First Character. </param>
+        /// <param name="characterTwo"> The Secodn Character. </param>
+        static public void Fight(ICharacter characterOne, ICharacter characterTwo)
         {
-            warriorOne.DealDamage(warriorTwo);
+            // Handle the First Character Dealing Damage to the Second One
+            characterOne.DealDamage(characterTwo);
 
             Console.WriteLine();
 
-            warriorTwo.DealDamage(warriorOne);
+            // Handle the Second Character Dealing Damage to the First One
+            characterTwo.DealDamage(characterOne);
         }
     }
 }
