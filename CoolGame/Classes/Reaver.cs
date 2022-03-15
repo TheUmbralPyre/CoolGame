@@ -1,10 +1,5 @@
-﻿using CoolGame.Delegates;
-using CoolGame.Static_Classes;
+﻿using CoolGame.Static_Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoolGame.Classes
 {
@@ -21,7 +16,8 @@ namespace CoolGame.Classes
             }
         }
 
-        public Reaver(string name, double attack, double health) : base(name, attack, health)
+        public Reaver(string name, double attack, double health)
+            : base(name, attack, health)
         {
             DamageDealt += RevearHeal;
         }

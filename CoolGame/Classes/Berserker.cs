@@ -1,10 +1,5 @@
-﻿using CoolGame.Delegates;
-using CoolGame.Static_Classes;
+﻿using CoolGame.Static_Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoolGame.Classes
 {
@@ -15,7 +10,8 @@ namespace CoolGame.Classes
         /// </summary>
         private double BerserkAttackGain { get; set; }
 
-        public Berserker(string name, double attack, double health, double berserkAttackGain) : base(name, attack, health)
+        public Berserker(string name, double attack, double health, double berserkAttackGain)
+            : base(name, attack, health)
         {
             BerserkAttackGain = berserkAttackGain;
             DamageTaken += BerserkGainAttack;
