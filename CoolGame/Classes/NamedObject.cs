@@ -15,7 +15,7 @@
             {
                 return name;
             }
-            set
+            private set
             {
                 name = value;
             }
