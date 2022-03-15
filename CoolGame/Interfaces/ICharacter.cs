@@ -2,7 +2,7 @@
 
 namespace CoolGame
 {
-    internal interface ICharacter
+    public interface ICharacter
     {
         /// <summary>
         /// Represents the Name of the Character.
@@ -32,13 +32,13 @@ namespace CoolGame
         /// <summary>
         /// Handles Taking Damage.
         /// </summary>
-        /// <param name="amount"> The Amount of Damage to be Taken. </param>
-        void TakeDamage(double amount);
+        /// <param name="attacker"> The Attacker from whom Damage will be Taken. </param>
+        void TakeDamage(ICharacter attacker);
 
         /// <summary>
         /// Handles Dealing Damage.
         /// </summary>
-        /// <param name="Target"> The Target to whom Damage will be Dealt. </param>
-        void DealDamage(ICharacter Target);
+        /// <param name="target"> The Target to whom Damage will be Dealt. </param>
+        void DealDamage(ICharacter target);
     }
 }

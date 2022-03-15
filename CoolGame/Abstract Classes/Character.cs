@@ -1,5 +1,6 @@
 ﻿using CoolGame.Classes;
 using CoolGame.Delegates;
+using CoolGame.Static_Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,12 +59,19 @@ namespace CoolGame
             Health = health;
         }
 
-        public virtual void TakeDamage(double amount)
+        public virtual void TakeDamage(ICharacter attacker)
         {
-            Console.WriteLine($"{Name} took {amount} points of DMG!");
+            ConsoleColoredText.WriteName(attacker.Name);
+            Console.Write(" has dealt ");
+            ConsoleColoredText.WriteAttack(attacker.Attack.ToString());
+            Console.Write(" points of ");
+            ConsoleColoredText.WriteAttack("Damage");
+            Console.Write(" to ");
+            ConsoleColoredText.WriteName(Name);
+            Console.WriteLine("!");
 
             // Subtract the Amount of Damage from Character Health
-            Health -= amount;
+            Health -= attacker.Attack;
 
             // If the DamageTaken event is Listening...
             if (DamageTaken != null)
@@ -72,13 +80,25 @@ namespace CoolGame
                 DamageTaken(this, new EventArgs());
             }
 
-            Console.WriteLine($"{Name} has {Health} points Left!");
+            ConsoleColoredText.WriteName(Name);
+            Console.Write(" has ");
+            ConsoleColoredText.WriteHealth(Health.ToString());
+            Console.Write(" points of ");
+            ConsoleColoredText.WriteHealth("Health");
+            Console.WriteLine(" left!");
+
+            ConsoleColoredText.WriteName(attacker.Name);
+            Console.Write(" has ");
+            ConsoleColoredText.WriteHealth(attacker.Health.ToString());
+            Console.Write(" points of ");
+            ConsoleColoredText.WriteHealth("Health");
+            Console.WriteLine(" left!");
         }
 
-        public virtual void DealDamage(ICharacter Target)
+        public virtual void DealDamage(ICharacter target)
         {
             // Handle the Target Taking Damage
-            Target.TakeDamage(Attack);
+            target.TakeDamage(this);
 
             // If the DamageDealt event is Listening...
             if (DamageDealt != null)

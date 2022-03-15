@@ -1,4 +1,5 @@
 ﻿using CoolGame.Delegates;
+using CoolGame.Static_Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace CoolGame.Classes
         /// <summary>
         /// Represents the Health Gain from Reaver.
         /// </summary>
-        private double RevearHealthGain
+        private double ReaverHealthGain
         {
             get
             {
@@ -32,10 +33,17 @@ namespace CoolGame.Classes
         /// <param name="args"> The Event Arguments. </param>
         private void RevearHeal(object sender, EventArgs args)
         {
-            Console.WriteLine($"[Reaver]: {Name} has Gained {RevearHealthGain} Health After Dealing Damage!");
+            ConsoleColoredText.WriteAbility("[Reaver]");
+            Console.Write(": ");
+            ConsoleColoredText.WriteName(Name);
+            Console.Write(" has gained ");
+            ConsoleColoredText.WriteHealth($"{ReaverHealthGain}");
+            Console.Write(" points of ");
+            ConsoleColoredText.WriteHealth("Health");
+            Console.WriteLine("!");
 
             // Increase the Reavers Health by the Reaver Health Gain
-            Health += RevearHealthGain;
+            Health += ReaverHealthGain;
         }
     }
 }

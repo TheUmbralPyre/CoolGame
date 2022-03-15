@@ -1,4 +1,5 @@
 ﻿using CoolGame.Delegates;
+using CoolGame.Static_Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,12 @@ namespace CoolGame.Classes
         /// <param name="args"> The Event Arguments. </param>
         private void BerserkGainAttack(object sender, EventArgs args)
         {
-            Console.WriteLine($"[Berserker]: {Name} has Gained {BerserkAttackGain} Attack!");
+            ConsoleColoredText.WriteAbility("[Berserker]");
+            Console.Write(": ");
+            ConsoleColoredText.WriteName(Name);
+            Console.Write(" Has Gained ");
+            ConsoleColoredText.WriteAttack($"{BerserkAttackGain} Attack");
+            Console.WriteLine("!");
 
             // Increase the Berserkers Attack by The Berserker Attack Gain
             Attack += BerserkAttackGain;
