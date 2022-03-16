@@ -16,6 +16,17 @@ namespace CoolGame.Classes
             }
         }
 
+        /// <summary>
+        /// Represents the Damage that the Character will Deal on an Attack.
+        /// </summary>
+        public override double Damage
+        {
+            get
+            {
+                return Attack;
+            }
+        }
+
         public Reaver(string name, double attack, double health)
             : base(name, attack, health)
         {

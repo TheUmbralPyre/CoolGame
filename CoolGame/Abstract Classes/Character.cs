@@ -20,7 +20,7 @@ namespace CoolGame
             {
                 return attack;
             }
-            protected set
+            private set
             {
                 attack = value;
             }
@@ -45,6 +45,11 @@ namespace CoolGame
             }
         }
 
+        /// <summary>
+        /// Represents the Damage that the Character will Deal on an Attack.
+        /// </summary>
+        public abstract double Damage { get; }
+
         public event DamageTakenDelegate DamageTaken;
 
         public event DamageDealtDelegate DamageDealt;
@@ -59,7 +64,7 @@ namespace CoolGame
         {
             ConsoleColoredText.WriteName(attacker.Name);
             Console.Write(" has dealt ");
-            ConsoleColoredText.WriteAttack(attacker.Attack.ToString());
+            ConsoleColoredText.WriteAttack(attacker.Damage.ToString());
             Console.Write(" points of ");
             ConsoleColoredText.WriteAttack("Damage");
             Console.Write(" to ");
@@ -67,7 +72,7 @@ namespace CoolGame
             Console.WriteLine("!");
 
             // Subtract the Amount of Damage from Character Health
-            Health -= attacker.Attack;
+            Health -= attacker.Damage;
 
             // If the DamageTaken event is Listening...
             if (DamageTaken != null)

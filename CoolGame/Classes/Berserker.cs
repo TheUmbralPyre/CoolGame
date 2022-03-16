@@ -6,14 +6,30 @@ namespace CoolGame.Classes
     internal class Berserker : Character
     {
         /// <summary>
-        /// Reresents the Attack Gained from Berserk.
+        /// Reresents the Attack Gain from Berserk.
         /// </summary>
-        private double BerserkAttackGain { get; set; }
+        private double berserkAttackGain;
+
+        /// <summary>
+        /// Represents the Current Bonus Attack from Berserker.
+        /// </summary>
+        private double berserkerBonusAttack = 0;
+
+        /// <summary>
+        /// Represents the Damage that the Character will Deal on an Attack.
+        /// </summary>
+        public override double Damage
+        {
+            get
+            {
+                return Attack + berserkerBonusAttack;
+            }
+        }
 
         public Berserker(string name, double attack, double health, double berserkAttackGain)
             : base(name, attack, health)
         {
-            BerserkAttackGain = berserkAttackGain;
+            this.berserkAttackGain = berserkAttackGain;
             DamageTaken += BerserkGainAttack;
         }
 
@@ -28,11 +44,11 @@ namespace CoolGame.Classes
             Console.Write(": ");
             ConsoleColoredText.WriteName(Name);
             Console.Write(" Has Gained ");
-            ConsoleColoredText.WriteAttack($"{BerserkAttackGain} Attack");
+            ConsoleColoredText.WriteAttack($"{berserkAttackGain} Attack");
             Console.WriteLine("!");
 
             // Increase the Berserkers Attack by The Berserker Attack Gain
-            Attack += BerserkAttackGain;
+            berserkerBonusAttack += berserkAttackGain;
         }
     }
 }

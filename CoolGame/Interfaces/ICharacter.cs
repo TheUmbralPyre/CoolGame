@@ -20,6 +20,11 @@ namespace CoolGame
         double Health { get; }
 
         /// <summary>
+        /// Represents the Damage that the Character will Deal on an Attack.
+        /// </summary>
+        abstract double Damage { get; }
+
+        /// <summary>
         /// Listens for when a Character Takes Damage.
         /// </summary>
         event DamageTakenDelegate DamageTaken;
