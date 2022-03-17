@@ -30,6 +30,7 @@ namespace CoolGame
         /// Represents the Health Value of the Character.
         /// </summary>
         private double health;
+
         /// <summary>
         /// Exposes the health field.
         /// </summary>
@@ -46,6 +47,26 @@ namespace CoolGame
         }
 
         /// <summary>
+        /// Reoresents the Speed Value of the Character.
+        /// </summary>
+        private double speed;
+
+        /// <summary>
+        /// Exposes the speed field. 
+        /// </summary>
+        public double Speed
+        {
+            get
+            {
+                return speed;
+            }
+            private set
+            {
+                speed = value;
+            }
+        }
+
+        /// <summary>
         /// Represents the Damage that the Character will Deal on an Attack.
         /// </summary>
         public abstract double Damage { get; }
@@ -54,10 +75,11 @@ namespace CoolGame
 
         public event DamageDealtDelegate DamageDealt;
 
-        protected Character(string name, double attack, double health) : base(name)
+        protected Character(string name, double attack, double health, double speed) : base(name)
         {
             Attack = attack;
             Health = health;
+            Speed = speed;
         }
 
         public virtual void TakeDamage(ICharacter attacker)

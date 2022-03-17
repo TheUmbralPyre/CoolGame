@@ -27,8 +27,8 @@ namespace CoolGame.Classes
             }
         }
 
-        public Reaver(string name, double attack, double health)
-            : base(name, attack, health)
+        public Reaver(string name, double attack, double health, double speed)
+            : base(name, attack, health, speed)
         {
             DamageDealt += RevearHeal;
         }

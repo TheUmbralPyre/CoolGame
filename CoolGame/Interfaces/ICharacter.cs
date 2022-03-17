@@ -20,6 +20,11 @@ namespace CoolGame
         double Health { get; }
 
         /// <summary>
+        /// Reoresents the Speed Value of the Character.
+        /// </summary>
+        double Speed { get; }
+
+        /// <summary>
         /// Represents the Damage that the Character will Deal on an Attack.
         /// </summary>
         abstract double Damage { get; }

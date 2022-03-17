@@ -26,8 +26,8 @@ namespace CoolGame.Classes
             }
         }
 
-        public Berserker(string name, double attack, double health, double berserkAttackGain)
-            : base(name, attack, health)
+        public Berserker(string name, double attack, double health, double speed, double berserkAttackGain)
+            : base(name, attack, health, speed)
         {
             this.berserkAttackGain = berserkAttackGain;
             DamageTaken += BerserkGainAttack;

@@ -7,8 +7,8 @@ namespace CoolGame
     {
         static void Main(string[] args)
         {
-            var warror = new Berserker("Rolf", 1, 20, 1);
-            var wawror = new Reaver("Aureus", 2, 10);
+            var warror = new Berserker("Rolf", 1, 20, 1, 1);
+            var wawror = new Reaver("Aureus", 2, 1.5 ,10);
 
             Combat.Fight(wawror, warror);
         }
