@@ -102,20 +102,6 @@ namespace CoolGame
                 // ...Raise the event
                 DamageTaken(this, new EventArgs());
             }
-
-            ConsoleColoredText.WriteName(Name);
-            Console.Write(" has ");
-            ConsoleColoredText.WriteHealth(Health.ToString());
-            Console.Write(" points of ");
-            ConsoleColoredText.WriteHealth("Health");
-            Console.WriteLine(" left!");
-
-            ConsoleColoredText.WriteName(attacker.Name);
-            Console.Write(" has ");
-            ConsoleColoredText.WriteHealth(attacker.Health.ToString());
-            Console.Write(" points of ");
-            ConsoleColoredText.WriteHealth("Health");
-            Console.WriteLine(" left!");
         }
 
         public virtual void DealDamage(ICharacter target)
@@ -129,6 +115,16 @@ namespace CoolGame
                 // ...Raise the event
                 DamageDealt(this, new EventArgs());
             }
+        }
+
+        public void GetStats()
+        {
+            ConsoleColoredText.WriteName(Name);
+            Console.Write(" has ");
+            ConsoleColoredText.WriteHealth(Health.ToString());
+            Console.Write(" points of ");
+            ConsoleColoredText.WriteHealth("Health");
+            Console.WriteLine(" left!");
         }
     }
 }
