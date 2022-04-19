@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CoolGame.Interfaces.AbilityInterfaces.BaseAbilityInterface;
 
-namespace CoolGame.Interfaces
+namespace CoolGame.Interfaces.AbilityInterfaces
 {
     interface IAbilityBerserker : IAbilityBase
     {

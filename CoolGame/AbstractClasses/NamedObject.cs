@@ -1,6 +1,6 @@
-﻿namespace CoolGame.Classes
+﻿namespace CoolGame.AbstractClasses
 {
-    public class NamedObject
+    public abstract class NamedObject
     {
         /// <summary>
         /// Represents the Name of the Object.

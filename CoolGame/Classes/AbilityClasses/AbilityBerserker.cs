@@ -1,16 +1,25 @@
-﻿using CoolGame.Interfaces;
-using CoolGame.StaticClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using CoolGame.AbstractClasses;
+using CoolGame.Interfaces.AbilityInterfaces;
+using CoolGame.Interfaces.CharacterInterfaces;
+using CoolGame.StaticClasses.ConsoleClasses;
 
-namespace CoolGame.Classes
+namespace CoolGame.Classes.AbilityClasses
 {
     internal class AbilityBerserker : IAbilityBerserker
     {
         string name = "Berserker";
+
+        private void WriteBerserkerAttackGainText()
+        {
+            ConsoleColoredText.WriteAbility($"[{Name}]");
+            Console.Write(": ");
+            ConsoleColoredText.WriteName(User.Name);
+            Console.Write(" Has Gained ");
+            ConsoleColoredText.WriteAttack($"{berserkAttackGain} Attack");
+            Console.WriteLine("!");
+        }
+
         public string Name
         {
             get
@@ -44,7 +53,7 @@ namespace CoolGame.Classes
         /// <param name="args"> The Event Arguments. </param>
         public void BerserkGainAttack(object sender, EventArgs args)
         {
-            ConsoleCharacterText.BerserkerAttackGain(Name, User.Name, berserkAttackGain);
+            WriteBerserkerAttackGainText();
 
             // Increase the Berserkers Attack by The Berserker Attack Gain
             berserkerBonusAttack += berserkAttackGain;

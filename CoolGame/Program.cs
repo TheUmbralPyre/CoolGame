@@ -1,5 +1,6 @@
-﻿using CoolGame.Classes;
-using System;
+﻿using System.Collections.Generic;
+using CoolGame.Classes.CharacterClasses;
+using CoolGame.Interfaces.CharacterInterfaces;
 
 namespace CoolGame
 {
@@ -8,9 +9,10 @@ namespace CoolGame
         static void Main(string[] args)
         {
             var warror = new Berserker("Rolf", 1, 20, 1, 1);
-            var wawror = new Reaver("Aureus", 2, 1.5 ,10);
+            var wawror = new Reaver("Aureus", 2, 10 ,1.5, 0);
 
-            Combat.Fight(wawror, warror);
+            var encounter = new Encounter(new List<ICharacter>() {warror, wawror });
+            encounter.Fight();
         }
     }
 }

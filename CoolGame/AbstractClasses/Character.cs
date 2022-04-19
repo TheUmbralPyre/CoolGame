@@ -1,11 +1,11 @@
-﻿using CoolGame.Classes;
-using CoolGame.Delegates;
-using CoolGame.Interfaces;
-using CoolGame.StaticClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CoolGame.Delegates;
+using CoolGame.Interfaces.AbilityInterfaces.BaseAbilityInterface;
+using CoolGame.Interfaces.CharacterInterfaces;
+using CoolGame.StaticClasses.ConsoleClasses;
 
-namespace CoolGame
+namespace CoolGame.AbstractClasses
 {
     public abstract class Character : NamedObject, ICharacter
     {

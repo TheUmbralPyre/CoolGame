@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoolGame.Static_Classes
+namespace CoolGame.StaticClasses.ConsoleClasses
 {
     static internal class ConsoleColoredText
     {

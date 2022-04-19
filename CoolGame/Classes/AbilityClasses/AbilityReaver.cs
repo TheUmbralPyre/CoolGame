@@ -1,7 +1,10 @@
-﻿using CoolGame.Interfaces;
-using System;
+﻿using System;
+using CoolGame.AbstractClasses;
+using CoolGame.Interfaces.CharacterInterfaces;
+using CoolGame.Interfaces.AbilityInterfaces;
+using CoolGame.StaticClasses.ConsoleClasses;
 
-namespace CoolGame.Classes
+namespace CoolGame.Classes.AbilityClasses
 {
     public class AbilityReaver : IAbilityReaver
     {

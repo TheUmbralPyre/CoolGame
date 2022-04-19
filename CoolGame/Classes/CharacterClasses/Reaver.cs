@@ -1,9 +1,7 @@
-﻿using CoolGame.Interfaces;
-using CoolGame.StaticClasses;
-using System;
-using System.Collections.Generic;
+﻿using CoolGame.AbstractClasses;
+using CoolGame.Classes.AbilityClasses;
 
-namespace CoolGame.Classes
+namespace CoolGame.Classes.CharacterClasses
 {
     internal class Reaver : Character
     {
