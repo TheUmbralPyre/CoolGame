@@ -1,16 +1,44 @@
 ﻿using CoolGame.Classes;
 using CoolGame.Delegates;
-using CoolGame.Static_Classes;
+using CoolGame.Interfaces;
+using CoolGame.StaticClasses;
 using System;
+using System.Collections.Generic;
 
 namespace CoolGame
 {
-    internal abstract class Character : NamedObject, ICharacter
+    public abstract class Character : NamedObject, ICharacter
     {
         /// <summary>
         /// Represents the Attack Value of the Character.
         /// </summary>
-        private double attack;
+        public double attack;
+
+        /// <summary>
+        /// Represents the Speed Value of the Character.
+        /// </summary>
+        private double speed;
+
+        /// <summary>
+        /// Represents the Health Value of the Character.
+        /// </summary>
+        private double health;
+
+        /// <summary>
+        /// Represents the Health Value of the Character.
+        /// </summary>
+        private double defense;
+
+        protected Character(string name, double attack, double health, double speed, double defense)
+            : base(name)
+        {
+            Attack = attack;
+            Health = health;
+            Speed = speed;
+            Defense = defense;
+            Abilities = new List<IAbilityBase>();
+        }
+
         /// <summary>
         /// Exposes the attack field.
         /// </summary>
@@ -20,36 +48,11 @@ namespace CoolGame
             {
                 return attack;
             }
-            private set
+            set
             {
                 attack = value;
             }
         }
-
-        /// <summary>
-        /// Represents the Health Value of the Character.
-        /// </summary>
-        private double health;
-
-        /// <summary>
-        /// Exposes the health field.
-        /// </summary>
-        public double Health
-        {
-            get
-            {
-                return health;
-            }
-            protected set
-            {
-                health = value;
-            }
-        }
-
-        /// <summary>
-        /// Reoresents the Speed Value of the Character.
-        /// </summary>
-        private double speed;
 
         /// <summary>
         /// Exposes the speed field. 
@@ -67,34 +70,58 @@ namespace CoolGame
         }
 
         /// <summary>
+        /// Exposes the health field.
+        /// </summary>
+        public double Health
+        {
+            get
+            {
+                return health;
+            }
+            private set
+            {
+                health = value;
+            }
+        }
+
+        /// <summary>
+        /// Exposes the defense field.
+        /// </summary>
+        public double Defense
+        {
+            get
+            {
+                return defense;
+            }
+            private set
+            {
+                defense = value;
+            }
+        }
+
+        /// <summary>
         /// Represents the Damage that the Character will Deal on an Attack.
         /// </summary>
-        public abstract double Damage { get; }
+        public virtual double Damage
+        {
+            get
+            {
+                return Attack;
+            }
+        }
 
         public event DamageTakenDelegate DamageTaken;
 
         public event DamageDealtDelegate DamageDealt;
 
-        protected Character(string name, double attack, double health, double speed) : base(name)
-        {
-            Attack = attack;
-            Health = health;
-            Speed = speed;
-        }
-
         public virtual void TakeDamage(ICharacter attacker)
         {
-            ConsoleColoredText.WriteName(attacker.Name);
-            Console.Write(" has dealt ");
-            ConsoleColoredText.WriteAttack(attacker.Damage.ToString());
-            Console.Write(" points of ");
-            ConsoleColoredText.WriteAttack("Damage");
-            Console.Write(" to ");
-            ConsoleColoredText.WriteName(Name);
-            Console.WriteLine("!");
+            var damageTaken = attacker.Damage - Defense;
 
             // Subtract the Amount of Damage from Character Health
-            Health -= attacker.Damage;
+            Health -= damageTaken;
+
+            ConsoleCharacterText.DealtDamage(attacker.Name, Name, damageTaken);
 
             // If the DamageTaken event is Listening...
             if (DamageTaken != null)
@@ -117,14 +144,18 @@ namespace CoolGame
             }
         }
 
-        public void GetStats()
+        public virtual void Heal(double amountToRestore)
         {
-            ConsoleColoredText.WriteName(Name);
-            Console.Write(" has ");
-            ConsoleColoredText.WriteHealth(Health.ToString());
-            Console.Write(" points of ");
-            ConsoleColoredText.WriteHealth("Health");
-            Console.WriteLine(" left!");
+            Health += amountToRestore;
+
+            //// If the Healed event is Listening...
+            //if (Healed != null)
+            //{
+            //    // ...Raise the event
+            //    Healed(this, new EventArgs());
+            //}
         }
+
+        public List<IAbilityBase> Abilities;
     }
 }

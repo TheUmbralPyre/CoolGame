@@ -1,6 +1,11 @@
-﻿using CoolGame.Delegates;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CoolGame.Delegates;
 
-namespace CoolGame
+namespace CoolGame.Interfaces
 {
     public interface ICharacter
     {
@@ -15,14 +20,19 @@ namespace CoolGame
         double Attack { get; }
 
         /// <summary>
+        /// Reoresents the Speed Value of the Character.
+        /// </summary>
+        double Speed { get; }
+
+        /// <summary>
         /// Represents the Health Value of the Character.
         /// </summary>
         double Health { get; }
 
         /// <summary>
-        /// Reoresents the Speed Value of the Character.
+        /// Represents the Defense Value of the Character.
         /// </summary>
-        double Speed { get; }
+        double Defense { get; }
 
         /// <summary>
         /// Represents the Damage that the Character will Deal on an Attack.
@@ -51,9 +61,6 @@ namespace CoolGame
         /// <param name="target"> The Target to whom Damage will be Dealt. </param>
         void DealDamage(ICharacter target);
 
-        /// <summary>
-        /// Displays the stats of the Character.
-        /// </summary>
-        void GetStats();
+        void Heal(double amountToRestore);
     }
 }

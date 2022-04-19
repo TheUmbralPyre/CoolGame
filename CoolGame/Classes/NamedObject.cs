@@ -1,6 +1,6 @@
 ﻿namespace CoolGame.Classes
 {
-    internal class NamedObject
+    public class NamedObject
     {
         /// <summary>
         /// Represents the Name of the Object.
