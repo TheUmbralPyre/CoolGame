@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoolGame.Delegates;
+using CoolGame.Classes.CharacterClasses.CharacterStatClasses;
+using CoolGame.Delegates.DamageDelegates;
+using CoolGame.Delegates.DamageDelegates.DamageDelegatesEventArgs;
 using CoolGame.Interfaces.AbilityInterfaces.BaseAbilityInterface;
 using CoolGame.Interfaces.CharacterInterfaces;
 using CoolGame.StaticClasses.ConsoleClasses;
@@ -9,117 +11,59 @@ namespace CoolGame.AbstractClasses
 {
     public abstract class Character : NamedObject, ICharacter
     {
-        /// <summary>
-        /// Represents the Attack Value of the Character.
-        /// </summary>
-        public double attack;
-
-        /// <summary>
-        /// Represents the Speed Value of the Character.
-        /// </summary>
-        private double speed;
-
-        /// <summary>
-        /// Represents the Health Value of the Character.
-        /// </summary>
-        private double health;
-
-        /// <summary>
-        /// Represents the Health Value of the Character.
-        /// </summary>
-        private double defense;
-
         protected Character(string name, double attack, double health, double speed, double defense)
             : base(name)
         {
-            Attack = attack;
-            Health = health;
-            Speed = speed;
-            Defense = defense;
+            // Initialize Character Attributes with the Recived Parameters
+            Attack = new CharacterAttribute(attack);
+            Health = new CharacterAttribute(health);
+            Speed = new CharacterAttribute(speed);
+            Defense = new CharacterAttribute(defense);
+            // Initialize a New List of Abilities
             Abilities = new List<IAbilityBase>();
         }
 
         /// <summary>
-        /// Exposes the attack field.
+        /// Represents the Attack Stat of the Character.
         /// </summary>
-        public double Attack
-        {
-            get
-            {
-                return attack;
-            }
-            set
-            {
-                attack = value;
-            }
-        }
+        public CharacterAttribute Attack { get; private set; }
 
         /// <summary>
-        /// Exposes the speed field. 
+        /// Represents the Speed Value of the Character.
         /// </summary>
-        public double Speed
-        {
-            get
-            {
-                return speed;
-            }
-            private set
-            {
-                speed = value;
-            }
-        }
+        public CharacterAttribute Speed { get; private set; }
 
         /// <summary>
-        /// Exposes the health field.
+        /// Represents the Health Value of the Character.
         /// </summary>
-        public double Health
-        {
-            get
-            {
-                return health;
-            }
-            private set
-            {
-                health = value;
-            }
-        }
+        public CharacterAttribute Health { get; private set; }
 
         /// <summary>
-        /// Exposes the defense field.
+        /// Represents the Defense Value of the Character.
         /// </summary>
-        public double Defense
-        {
-            get
-            {
-                return defense;
-            }
-            private set
-            {
-                defense = value;
-            }
-        }
+        public CharacterAttribute Defense { get; private set; }
 
         /// <summary>
-        /// Represents the Damage that the Character will Deal on an Attack.
+        /// Listens for when a Character Takes Damage.
         /// </summary>
-        public virtual double Damage
-        {
-            get
-            {
-                return Attack;
-            }
-        }
-
         public event DamageTakenDelegate DamageTaken;
 
+        /// <summary>
+        /// Listens for when a Character Deals Damage.
+        /// </summary>
         public event DamageDealtDelegate DamageDealt;
 
-        public virtual void TakeDamage(ICharacter attacker)
+        /// <summary>
+        /// Handles Taking Damage.
+        /// </summary>
+        /// <param name="attacker"> The Attacker from whom Damage will be Taken. </param>
+        public void TakeDamage(ICharacter attacker)
         {
-            var damageTaken = attacker.Damage - Defense;
+            // Initialize the Taken Damage as the Attacker's Attack Minus the Defender's Defense
+            var damageTaken = attacker.Attack.CurrentValue - Defense.CurrentValue;
 
             // Subtract the Amount of Damage from Character Health
-            Health -= damageTaken;
+            Health.DecreaseBy(damageTaken);
 
             ConsoleCharacterText.DealtDamage(attacker.Name, Name, damageTaken);
 
@@ -127,11 +71,15 @@ namespace CoolGame.AbstractClasses
             if (DamageTaken != null)
             {
                 // ...Raise the event
-                DamageTaken(this, new EventArgs());
+                DamageTaken(this, new DamageTakenEventArgs(damageTaken));
             }
         }
 
-        public virtual void DealDamage(ICharacter target)
+        /// <summary>
+        /// Handles Dealing Damage.
+        /// </summary>
+        /// <param name="target"> The Target to whom Damage will be Dealt. </param>
+        public void DealDamage(ICharacter target)
         {
             // Handle the Target Taking Damage
             target.TakeDamage(this);
@@ -144,18 +92,9 @@ namespace CoolGame.AbstractClasses
             }
         }
 
-        public virtual void Heal(double amountToRestore)
-        {
-            Health += amountToRestore;
-
-            //// If the Healed event is Listening...
-            //if (Healed != null)
-            //{
-            //    // ...Raise the event
-            //    Healed(this, new EventArgs());
-            //}
-        }
-
+        /// <summary>
+        /// Stores the Character's Abilities.
+        /// </summary>
         public List<IAbilityBase> Abilities;
     }
 }

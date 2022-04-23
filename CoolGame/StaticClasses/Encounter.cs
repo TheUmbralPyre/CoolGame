@@ -18,7 +18,7 @@ namespace CoolGame
 
         public Encounter(List<ICharacter> characters)
         {
-            turnQueue = characters.OrderByDescending(x => x.Speed).ToList();
+            turnQueue = characters.OrderByDescending(x => x.Speed.CurrentValue).ToList();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace CoolGame
         /// </summary>
         public void Fight()
         {
-            while (!turnQueue.Exists(x => x.Health <= 0))
+            while (!turnQueue.Exists(x => x.Health.CurrentValue <= 0))
             {
                 Console.WriteLine("/////////////////////////////////");
                 Console.WriteLine($"TURN {turnNumber} {{{turnQueue[turnAttacker].Name}}}");

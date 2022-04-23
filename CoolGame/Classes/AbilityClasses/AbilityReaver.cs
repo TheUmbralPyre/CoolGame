@@ -1,16 +1,21 @@
 ﻿using System;
 using CoolGame.AbstractClasses;
-using CoolGame.Interfaces.CharacterInterfaces;
-using CoolGame.Interfaces.AbilityInterfaces;
 using CoolGame.StaticClasses.ConsoleClasses;
+using CoolGame.Classes.AbilityClasses.BaseAbilityClass;
 
 namespace CoolGame.Classes.AbilityClasses
 {
-    public class AbilityReaver : IAbilityReaver
+    public class AbilityReaver : AbilityBase
     {
-        string name = "Reaver";
+        /// <summary>
+        /// Represents the Ability's Name.
+        /// </summary>
+        private const string name = "Reaver";
 
-        private void WriteReaverHealText()
+        /// <summary>
+        /// Writes the Ability's Text to the Console. 
+        /// </summary>
+        protected override void WriteAbilityText()
         {
             ConsoleColoredText.WriteAbility($"[{Name}]");
             Console.Write(": ");
@@ -22,19 +27,10 @@ namespace CoolGame.Classes.AbilityClasses
             Console.WriteLine("!");
         }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
-
-        public ICharacter User { get; private set; }
-
         public AbilityReaver(Character user)
+            : base(name, user)
         {
-            User = user;
+            // Assign a Method to an User's Event
             User.DamageDealt += ReaverHeal;
         }
 
@@ -45,21 +41,22 @@ namespace CoolGame.Classes.AbilityClasses
         {
             get
             {
-                return User.Attack / 2;
+                return User.Attack.CurrentValue / 2;
             }
         }
 
         /// <summary>
-        /// Trigger the Reaver Ability. Healing the Reaver after Dealing Damage.
+        /// Heals the Reaver after Dealing Damage.
         /// </summary>
         /// <param name="sender"> The Event Sender. </param>
         /// <param name="args"> The Event Arguments. </param>
         public void ReaverHeal(object sender, EventArgs args)
         {
-            WriteReaverHealText();
-
             // Increase the Reavers Health by the Reaver Health Gain
-            //Heal(ReaverHealthGain);
+            User.Health.IncreaseBy(ReaverHealthGain);
+
+            // Write the Abilitiy's text to the Console
+            WriteAbilityText();
         }
     }
 }

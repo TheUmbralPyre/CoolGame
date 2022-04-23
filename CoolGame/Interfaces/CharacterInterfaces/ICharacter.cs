@@ -1,4 +1,5 @@
-﻿using CoolGame.Delegates;
+﻿using CoolGame.Classes.CharacterClasses.CharacterStatClasses;
+using CoolGame.Delegates.DamageDelegates;
 
 namespace CoolGame.Interfaces.CharacterInterfaces
 {
@@ -12,27 +13,22 @@ namespace CoolGame.Interfaces.CharacterInterfaces
         /// <summary>
         /// Represents the Attack Value of the Character.
         /// </summary>
-        double Attack { get; }
+        CharacterAttribute Attack { get; }
 
         /// <summary>
         /// Reoresents the Speed Value of the Character.
         /// </summary>
-        double Speed { get; }
+        CharacterAttribute Speed { get; }
 
         /// <summary>
         /// Represents the Health Value of the Character.
         /// </summary>
-        double Health { get; }
+        CharacterAttribute Health { get; }
 
         /// <summary>
         /// Represents the Defense Value of the Character.
         /// </summary>
-        double Defense { get; }
-
-        /// <summary>
-        /// Represents the Damage that the Character will Deal on an Attack.
-        /// </summary>
-        abstract double Damage { get; }
+        CharacterAttribute Defense { get; }
 
         /// <summary>
         /// Listens for when a Character Takes Damage.
@@ -55,7 +51,5 @@ namespace CoolGame.Interfaces.CharacterInterfaces
         /// </summary>
         /// <param name="target"> The Target to whom Damage will be Dealt. </param>
         void DealDamage(ICharacter target);
-
-        void Heal(double amountToRestore);
     }
 }
