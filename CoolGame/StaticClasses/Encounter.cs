@@ -2,23 +2,54 @@
 using System.Collections.Generic;
 using System.Linq;
 using CoolGame.Interfaces.CharacterInterfaces;
+using CoolGame.StaticClasses.ConsoleClasses;
 
 namespace CoolGame
 {
-    internal class Encounter
+    public class Encounter
     {
-        int turnNumber = 1;
+        /// <summary>
+        /// The Number of the Current Turn.
+        /// </summary>
+        private int turnNumber = 1;
 
-        int turnAttacker = 0;
+        private ICharacter characterOne;
+        private ICharacter characterTwo;
 
-        int turnDefender = 1;
-        ///
-
-        List<ICharacter> turnQueue;
-
-        public Encounter(List<ICharacter> characters)
+        /// <summary>
+        /// Switches the Places of the Characters.
+        /// </summary>
+        private void SwitchCharachters()
         {
-            turnQueue = characters.OrderByDescending(x => x.Speed.CurrentValue).ToList();
+            // Initialize a Variable to Temporarily Store the Reference to Character One
+            var tempChar = characterOne;
+            // Assign the Character Two's Reference to Character One
+            characterOne = characterTwo;
+            // Assign the Temporary Character's Reference to Character Two 
+            characterTwo = tempChar;
+        }
+
+        /// <summary>
+        /// Incraments the Turn Number.
+        /// </summary>
+        private void AdvanceTurn()
+        {
+            // Incrament the Turn Number
+            turnNumber += 1;
+        }
+
+        public Encounter(ICharacter characterOne, ICharacter characterTwo)
+        {
+            // Initialize a List with the Recieved Characters
+            var speedList = new List<ICharacter>() { characterOne, characterTwo };
+
+            // Sort the Lsit By the Character's Speed
+            speedList = speedList.OrderByDescending(x => x.Speed.CurrentValue).ToList();
+
+            // Assign the Faster Character to Character One
+            this.characterOne = speedList[0];
+            // Assign the Slower Character to Characer Two
+            this.characterTwo = speedList[1];
         }
 
         /// <summary>
@@ -26,46 +57,49 @@ namespace CoolGame
         /// </summary>
         public void Fight()
         {
-            while (!turnQueue.Exists(x => x.Health.CurrentValue <= 0))
-            {
-                Console.WriteLine("/////////////////////////////////");
-                Console.WriteLine($"TURN {turnNumber} {{{turnQueue[turnAttacker].Name}}}");
-                // Handle the First Character Dealing Damage to the Second One
-                Attack(turnQueue[turnAttacker], turnQueue[turnDefender]);
+            // Display the Values of the Attributes of Both Characters
+            characterOne.DisplayAttributes();
+            characterTwo.DisplayAttributes();
 
+            // While Both Characters' Health is Above Zero...
+            while (characterOne.Health.CurrentValue > 0.0 && characterTwo.Health.CurrentValue > 0.0)
+            {
+                // ...Handle the First Character Dealing Damage to the Second One
+                Attack(characterOne, characterTwo);
+
+                // ...Incrament the Turn Number
                 AdvanceTurn();
+
+                // ...Switch the Characters' Places
+                SwitchCharachters();
             }
         }
 
-        private void AdvanceTurn()
-        {
-            turnNumber += 1;
-
-            //turnAttacker = turnAttacker == 1 ? 0 : 1;
-
-            //turnDefender = turnDefender == 0 ? 1 : 0;
-
-            var tempChar = turnQueue[0];
-            turnQueue.RemoveAt(0);
-            turnQueue.Add(tempChar);
-        }
-
         /// <summary>
-        /// The Attacker Attacks the Target Dealing Damage and their Stats are Displayed.
+        /// The Attacker Deals Damage to the Target and their Stats are Displayed.
         /// </summary>
         /// <param name="attacker"> The Attacking Character. </param>
         /// <param name="target"> The Target of the Attack. </param>
         private void Attack(ICharacter attacker, ICharacter target)
         {
+            // Write the Encounter Border Text
+            ConsoleEncounterText.WriteEncounterBorderText();
+
+            // Write the Turn Opening Text
+            ConsoleEncounterText.WriteTurnTextOpening(turnNumber, attacker.Name);
+
             // Make the Atttacker Deal Damage to the Target
             attacker.DealDamage(target);
 
-            // Get the Stats of Both Characters
-            Console.WriteLine();
-            Console.WriteLine($"END OF TURN {turnNumber}");
-            Console.WriteLine("/////////////////////////////////");
+            // Write the Turn Closing Text
+            ConsoleEncounterText.WriteTurnTextClosing(turnNumber);
 
-            Console.WriteLine();
+            // Display the Values of the Attributes of Both Characters
+            attacker.DisplayAttributes();
+            target.DisplayAttributes();
+
+            // Write the Encounter Border Text
+            ConsoleEncounterText.WriteEncounterBorderText();
         }
     }
 }

@@ -93,6 +93,15 @@ namespace CoolGame.AbstractClasses
         }
 
         /// <summary>
+        /// Displays the Values of the Character's Attributes.
+        /// </summary>
+        public void DisplayAttributes()
+        {
+            ConsoleCharacterText.WriteCharacterAttributes(Name, Attack.CurrentValue, Health.CurrentValue,
+                Speed.CurrentValue, Defense.CurrentValue);
+        }
+
+        /// <summary>
         /// Stores the Character's Abilities.
         /// </summary>
         public List<IAbilityBase> Abilities;

@@ -51,5 +51,10 @@ namespace CoolGame.Interfaces.CharacterInterfaces
         /// </summary>
         /// <param name="target"> The Target to whom Damage will be Dealt. </param>
         void DealDamage(ICharacter target);
+
+        /// <summary>
+        /// Displays the Values of the Character's Attributes.
+        /// </summary>
+        void DisplayAttributes();
     }
 }
