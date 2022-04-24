@@ -5,20 +5,17 @@ using CoolGame.Interfaces.CharacterInterfaces;
 
 namespace CoolGame
 {
-    internal class Encounter
+    public class Encounter
     {
-        int turnNumber = 1;
+        private int turnNumber = 1;
 
-        int turnAttacker = 0;
+        ICharacter characterOne;
+        ICharacter characterTwo;
 
-        int turnDefender = 1;
-        ///
-
-        List<ICharacter> turnQueue;
-
-        public Encounter(List<ICharacter> characters)
+        public Encounter(ICharacter characterOne, ICharacter characterTwo)
         {
-            turnQueue = characters.OrderByDescending(x => x.Speed.CurrentValue).ToList();
+            this.characterOne = characterOne;
+            this.characterTwo = characterTwo;
         }
 
         /// <summary>
@@ -26,12 +23,13 @@ namespace CoolGame
         /// </summary>
         public void Fight()
         {
-            while (!turnQueue.Exists(x => x.Health.CurrentValue <= 0))
+            while (characterOne.Health.CurrentValue > 0 || characterTwo.Health.CurrentValue > 0)
             {
-                Console.WriteLine("/////////////////////////////////");
-                Console.WriteLine($"TURN {turnNumber} {{{turnQueue[turnAttacker].Name}}}");
                 // Handle the First Character Dealing Damage to the Second One
-                Attack(turnQueue[turnAttacker], turnQueue[turnDefender]);
+                Attack(characterOne, characterTwo);
+
+                // Handle the First Character Dealing Damage to the Second One
+                Attack(characterTwo, characterOne);
 
                 AdvanceTurn();
             }
@@ -40,29 +38,26 @@ namespace CoolGame
         private void AdvanceTurn()
         {
             turnNumber += 1;
-
-            //turnAttacker = turnAttacker == 1 ? 0 : 1;
-
-            //turnDefender = turnDefender == 0 ? 1 : 0;
-
-            var tempChar = turnQueue[0];
-            turnQueue.RemoveAt(0);
-            turnQueue.Add(tempChar);
         }
 
         /// <summary>
-        /// The Attacker Attacks the Target Dealing Damage and their Stats are Displayed.
+        /// The Attacker Deals Damage to the Target and their Stats are Displayed.
         /// </summary>
         /// <param name="attacker"> The Attacking Character. </param>
         /// <param name="target"> The Target of the Attack. </param>
         private void Attack(ICharacter attacker, ICharacter target)
         {
+            Console.WriteLine("/////////////////////////////////");
+            Console.WriteLine($"TURN {turnNumber} {{{attacker.Name}}}");
+
             // Make the Atttacker Deal Damage to the Target
             attacker.DealDamage(target);
 
             // Get the Stats of Both Characters
             Console.WriteLine();
             Console.WriteLine($"END OF TURN {turnNumber}");
+            /// Add Stats Here
+            /// Also Make Speed Matter
             Console.WriteLine("/////////////////////////////////");
 
             Console.WriteLine();

@@ -4,6 +4,12 @@ namespace CoolGame.StaticClasses.ConsoleClasses
 {
     public class ConsoleCharacterText
     {
+        /// <summary>
+        /// Writes to the Console After a Character Has Dealt Damage.
+        /// </summary>
+        /// <param name="attackerName"> The Name of the Attacker. </param>
+        /// <param name="targetName"> The Name of the Target. </param>
+        /// <param name="damageDealt"> The Amount of Damage Dealt. </param>
         public static void DealtDamage(string attackerName,string targetName , double damageDealt)
         {
             ConsoleColoredText.WriteName(attackerName);
