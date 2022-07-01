@@ -20,6 +20,7 @@ namespace CoolGame.StaticClasses.ConsoleClasses
             Console.Write(" to ");
             ConsoleColoredText.WriteName(targetName);
             Console.WriteLine("!");
+            Console.WriteLine();
         }
 
         /// <summary>

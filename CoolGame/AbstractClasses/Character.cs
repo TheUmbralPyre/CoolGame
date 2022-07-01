@@ -5,7 +5,6 @@ using CoolGame.Delegates.DamageDelegates;
 using CoolGame.Delegates.DamageDelegates.DamageDelegatesEventArgs;
 using CoolGame.Interfaces.AbilityInterfaces.BaseAbilityInterface;
 using CoolGame.Interfaces.CharacterInterfaces;
-using CoolGame.StaticClasses.ConsoleClasses;
 
 namespace CoolGame.AbstractClasses
 {
@@ -57,7 +56,8 @@ namespace CoolGame.AbstractClasses
         /// Handles Taking Damage.
         /// </summary>
         /// <param name="attacker"> The Attacker from whom Damage will be Taken. </param>
-        public void TakeDamage(ICharacter attacker)
+        /// <returns> The Amount of Damage Taken. </returns>
+        public double TakeDamage(ICharacter attacker)
         {
             // Initialize the Taken Damage as the Attacker's Attack Minus the Defender's Defense
             var damageTaken = attacker.Attack.CurrentValue - Defense.CurrentValue;
@@ -65,24 +65,25 @@ namespace CoolGame.AbstractClasses
             // Subtract the Amount of Damage from Character Health
             Health.DecreaseBy(damageTaken);
 
-            ConsoleCharacterText.DealtDamage(attacker.Name, Name, damageTaken);
-
             // If the DamageTaken event is Listening...
             if (DamageTaken != null)
             {
                 // ...Raise the event
                 DamageTaken(this, new DamageTakenEventArgs(damageTaken));
             }
+
+            return damageTaken;
         }
 
         /// <summary>
         /// Handles Dealing Damage.
         /// </summary>
         /// <param name="target"> The Target to whom Damage will be Dealt. </param>
-        public void DealDamage(ICharacter target)
+        /// <returns> The Amount of Damage Dealt. </returns>
+        public double DealDamage(ICharacter target)
         {
-            // Handle the Target Taking Damage
-            target.TakeDamage(this);
+            // Make the Target Take Damage and Store the Dealt Damage in a Variable
+            var damageDealt = target.TakeDamage(this);
 
             // If the DamageDealt event is Listening...
             if (DamageDealt != null)
@@ -90,15 +91,8 @@ namespace CoolGame.AbstractClasses
                 // ...Raise the event
                 DamageDealt(this, new EventArgs());
             }
-        }
 
-        /// <summary>
-        /// Displays the Values of the Character's Attributes.
-        /// </summary>
-        public void DisplayAttributes()
-        {
-            ConsoleCharacterText.WriteCharacterAttributes(Name, Attack.CurrentValue, Health.CurrentValue,
-                Speed.CurrentValue, Defense.CurrentValue);
+            return damageDealt;
         }
 
         /// <summary>

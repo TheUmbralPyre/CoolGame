@@ -57,10 +57,6 @@ namespace CoolGame
         /// </summary>
         public void Fight()
         {
-            // Display the Values of the Attributes of Both Characters
-            characterOne.DisplayAttributes();
-            characterTwo.DisplayAttributes();
-
             // While Both Characters' Health is Above Zero...
             while (characterOne.Health.CurrentValue > 0.0 && characterTwo.Health.CurrentValue > 0.0)
             {
@@ -82,24 +78,20 @@ namespace CoolGame
         /// <param name="target"> The Target of the Attack. </param>
         private void Attack(ICharacter attacker, ICharacter target)
         {
-            // Write the Encounter Border Text
-            ConsoleEncounterText.WriteEncounterBorderText();
-
             // Write the Turn Opening Text
             ConsoleEncounterText.WriteTurnTextOpening(turnNumber, attacker.Name);
 
             // Make the Atttacker Deal Damage to the Target
-            attacker.DealDamage(target);
+            var damageDealt = attacker.DealDamage(target);
+
+            // Write Damage Dealt Text
+            ConsoleCharacterText.DealtDamage(attacker.Name, target.Name, damageDealt);
+
+            // Display the Values of the Attributes of Both Characters
+            ConsoleEncounterText.DisplayCharacterAttributes(characterOne, characterTwo);
 
             // Write the Turn Closing Text
             ConsoleEncounterText.WriteTurnTextClosing(turnNumber);
-
-            // Display the Values of the Attributes of Both Characters
-            attacker.DisplayAttributes();
-            target.DisplayAttributes();
-
-            // Write the Encounter Border Text
-            ConsoleEncounterText.WriteEncounterBorderText();
         }
     }
 }

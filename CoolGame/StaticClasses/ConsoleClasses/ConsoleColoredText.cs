@@ -23,6 +23,14 @@ namespace CoolGame.StaticClasses.ConsoleClasses
             Console.ResetColor();
         }
 
+        static public void Write(string text, ConsoleColor color, int offset)
+        {
+            Console.ForegroundColor = color;
+            Console.Write("{0," + offset + " }", text);
+            Console.ResetColor();
+        }
+
+
         /// <summary>
         /// Writes a Line to the Console in Color.
         /// </summary>
@@ -45,6 +53,16 @@ namespace CoolGame.StaticClasses.ConsoleClasses
         }
 
         /// <summary>
+        /// Writes to the Console in a Color that represents a Name with and Offset.
+        /// </summary>
+        /// <param name="text"> The Text to be Written. </param>
+        /// <param name="offset"> Tha Value that the Text will be Offset by. </param>
+        static public void WriteName(string text, int offset)
+        {
+            Write(text, nameColor, offset);
+        }
+
+        /// <summary>
         /// Writes a Line to the Console in a Color that represents a Name.
         /// </summary>
         /// <param name="text"> The Text to be Written. </param>
@@ -60,6 +78,16 @@ namespace CoolGame.StaticClasses.ConsoleClasses
         static public void WriteAttack(string text)
         {
             Write(text, attackColor);
+        }
+
+        /// <summary>
+        /// Writes to the Console in a Color that represents Attack with and Offset.
+        /// </summary>
+        /// <param name="text"> The Text to be Written. </param>
+        /// <param name="offset"> Tha Value that the Text will be Offset by. </param>
+        static public void WriteAttack(string text, int offset)
+        {
+            Write(text, attackColor, offset);
         }
 
         /// <summary>
@@ -81,6 +109,16 @@ namespace CoolGame.StaticClasses.ConsoleClasses
         }
 
         /// <summary>
+        /// Writes to the Console in a Color that represents Health with and Offset.
+        /// </summary>
+        /// <param name="text"> The Text to be Written. </param>
+        /// <param name="offset"> Tha Value that the Text will be Offset by. </param>
+        static public void WriteHealth(string text, int offset)
+        {
+            Write(text, healthColor, offset);
+        }
+
+        /// <summary>
         /// Writes a Line to the Console in a Color that represents Health.
         /// </summary>
         /// <param name="text"> The Text to be Written. </param>
@@ -99,6 +137,16 @@ namespace CoolGame.StaticClasses.ConsoleClasses
         }
 
         /// <summary>
+        /// Writes to the Console in a Color that represents Speed with and Offset.
+        /// </summary>
+        /// <param name="text"> The Text to be Written. </param>
+        /// <param name="offset"> Tha Value that the Text will be Offset by. </param>
+        static public void WriteSpeed(string text, int offset)
+        {
+            Write(text, speedColor, offset);
+        }
+
+        /// <summary>
         /// Writes a Line to the Console in a Color that represents Speed.
         /// </summary>
         /// <param name="text"> The Text to be Written. </param>
@@ -114,6 +162,16 @@ namespace CoolGame.StaticClasses.ConsoleClasses
         static public void WriteDefense(string text)
         {
             Write(text, defenseColor);
+        }
+
+        /// <summary>
+        /// Writes to the Console in a Color that represents Defense with and Offset.
+        /// </summary>
+        /// <param name="text"> The Text to be Written. </param>
+        /// <param name="offset"> Tha Value that the Text will be Offset by. </param>
+        static public void WriteDefense(string text, int offset)
+        {
+            Write(text, defenseColor, offset);
         }
 
         /// <summary>
