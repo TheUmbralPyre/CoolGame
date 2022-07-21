@@ -44,14 +44,12 @@ namespace CoolGame.Interfaces.CharacterInterfaces
         /// Handles Taking Damage.
         /// </summary>
         /// <param name="attacker"> The Attacker from whom Damage will be Taken. </param>
-        /// <returns> The Amount of Damage Taken. </returns>
-        double TakeDamage(ICharacter attacker);
+        void TakeDamage(ICharacter attacker);
 
         /// <summary>
         /// Handles Dealing Damage.
         /// </summary>
         /// <param name="target"> The Target to whom Damage will be Dealt. </param>
-        /// <returns> The Amount of Damage Dealt. </returns>
-        double DealDamage(ICharacter target);
+        void DealDamage(ICharacter target);
     }
 }

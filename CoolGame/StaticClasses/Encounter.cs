@@ -82,10 +82,7 @@ namespace CoolGame
             ConsoleEncounterText.WriteTurnTextOpening(turnNumber, attacker.Name);
 
             // Make the Atttacker Deal Damage to the Target
-            var damageDealt = attacker.DealDamage(target);
-
-            // Write Damage Dealt Text
-            ConsoleCharacterText.DealtDamage(attacker.Name, target.Name, damageDealt);
+            attacker.DealDamage(target);
 
             // Display the Values of the Attributes of Both Characters
             ConsoleEncounterText.DisplayCharacterAttributes(characterOne, characterTwo);

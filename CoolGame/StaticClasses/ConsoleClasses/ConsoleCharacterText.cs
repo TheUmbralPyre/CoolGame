@@ -10,15 +10,12 @@ namespace CoolGame.StaticClasses.ConsoleClasses
         /// <param name="attackerName"> The Name of the Attacker. </param>
         /// <param name="targetName"> The Name of the Target. </param>
         /// <param name="damageDealt"> The Amount of Damage Dealt. </param>
-        public static void DealtDamage(string attackerName,string targetName , double damageDealt)
+        public static void WriteDamageTaken(string attackerName, string targetName, double damageDealt)
         {
             ConsoleColoredText.WriteName(attackerName);
-            Console.Write(" has ");
-            ConsoleColoredText.WriteAttack($"dealt {damageDealt}");
-            Console.Write(" points of ");
-            ConsoleColoredText.WriteAttack("Damage");
-            Console.Write(" to ");
+            ConsoleColoredText.WriteAttack(" Attacks ");
             ConsoleColoredText.WriteName(targetName);
+            ConsoleColoredText.WriteAttack($" Dealing {damageDealt} Damage");
             Console.WriteLine("!");
             Console.WriteLine();
         }
